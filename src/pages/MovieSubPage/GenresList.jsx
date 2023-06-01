@@ -1,8 +1,9 @@
-import { useFetchMovie } from 'components/hooks/useFetchMovies';
+import { useFetchMovie } from '../../hooks/useFetchMovies';
 
 export const GenresList = () => {
 	const movie = useFetchMovie();
 	const genres = movie.genres;
+    // if () {}
 	return (
 		<ul>
             {genres.map(el => {

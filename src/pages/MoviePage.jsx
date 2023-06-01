@@ -3,7 +3,7 @@ const {
 	useSearchParams,
 	useLocation,
 	Link,
-	Outlet,
+
 } = require('react-router-dom');
 const { getMovieBySearchQuery } = require('services/services');
 
@@ -60,7 +60,6 @@ const MoviesPage = () => {
 					</ul>
 				</>
 			)}
-			<Outlet />
 		</>
 	);
 };
