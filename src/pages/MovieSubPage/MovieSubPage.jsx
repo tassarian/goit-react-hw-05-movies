@@ -1,5 +1,5 @@
 import { useFetchMovie } from 'components/hooks/useFetchMovies';
-import { GenresList } from './GenresList';
+// import { GenresList } from './GenresList';
 const { useLocation, useNavigate, Link, Outlet } = require('react-router-dom');
 const { StyledWrapper, StyledUl } = require('./MovieSubPage.styled');
 
