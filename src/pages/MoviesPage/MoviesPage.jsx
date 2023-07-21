@@ -10,24 +10,25 @@ import {
 } from './MoviesPage.styled';
 import { StyledBox } from 'pages/HomePage/HomePage.styled';
 import { Grid } from 'react-loader-spinner';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 const MoviesPage = () => {
 	const [movies, setMovies] = useState([]);
-	const [searchQuery, setSearchQuery] = useState('');
+	const [searchQuery, setSearchQuery] = useSearchParams();
+	const query = searchQuery.get('q');
 	const [isLoading, setIsLoading] = useState(false);
 	const location = useLocation();
 
 	const handleChange = e => {
 		if (e.target.name === 'movie_input') {
-			setSearchQuery(e.target.value);
+			setSearchQuery({ q: e.target.value });
 		}
 	};
 
 	useEffect(() => {
 		setIsLoading(true);
 		setTimeout(() => {
-			fetchSearchingMovies(searchQuery)
+			fetchSearchingMovies(query)
 				.then(result => {
 					const data = result.data.results;
 					setMovies(data);
@@ -39,7 +40,7 @@ const MoviesPage = () => {
 					setIsLoading(false);
 				});
 		}, 1500);
-	}, [searchQuery]);
+	}, [query]);
 
 	return (
 		<Section>
@@ -48,7 +49,7 @@ const MoviesPage = () => {
 				name="movie_input"
 				placeholder="Search"
 				type="text"
-				value={searchQuery}
+				value={query}
 				onChange={handleChange}
 				autoComplete="off"
 			/>
@@ -67,7 +68,7 @@ const MoviesPage = () => {
 				</StyledBox>
 			) : (
 				<StyledList>
-					{movies &&
+					{movies.length > 0 &&
 						movies.map(el => (
 							<StyledItem key={el.id}>
 								<StyledNavLink
